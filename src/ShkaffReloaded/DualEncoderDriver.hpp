@@ -2,37 +2,29 @@
 #define __DUAL_ENCODER_DRIVER_H
 
 #include <cstdint>
-#include <cmath>
 
 #define IMPULSES_PER_ROUND   12
 #define QUEUE_SIZE IMPULSES_PER_ROUND
 
 class DualEncoder {
 	private:
-		uint32_t last_micros;
-		int8_t impulse_counter;
-
-		uint32_t impulse_deltas[QUEUE_SIZE];
-		uint32_t impulse_deltas_sum;
-		uint8_t impulse_deltas_index;
-
-		float speed;
-
 		const int A_PIN;
 		const int B_PIN;
+
+		volatile bool peak_started;
+		volatile uint32_t last_signal_change;
+		volatile uint32_t signal_change_delta;
 
 		void update(int8_t);
 
 	public:
 		DualEncoder(int, int);
 
-		void init(void (*)(), void (*)());
-		void update();
+		void init(void (*)());
 
-		void A_handler();
-		void B_handler();
+		void handler();
 
-		inline float getSpeed() { return speed; }; // mm / s
+		float getSpeed();
 };
 
 #endif // __DUAL_ENCODER_DRIVER_H

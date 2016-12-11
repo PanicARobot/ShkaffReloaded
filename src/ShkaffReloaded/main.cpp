@@ -18,29 +18,24 @@ void setup()
 {
 	initMotors();
 
-	left_encoder.init(
-		[]{left_encoder.A_handler();},
-		[]{left_encoder.B_handler();});
-	right_encoder.init(
-		[]{right_encoder.A_handler();},
-		[]{right_encoder.B_handler();});
+	left_encoder.init([]{left_encoder.handler();});
+	right_encoder.init([]{right_encoder.handler();});
 
 	Serial.begin(SERIAL_BAUD_RATE);
 }
 
 void loop()
 {
-	static uint32_t last_micros = 0;
-	uint32_t current_micros = micros();
+	static uint32_t last_millis = 0;
+	uint32_t current_millis = millis();
 
-	left_encoder.update();
-	right_encoder.update();
-
-	if(current_micros - last_micros >= 100)
+	if(current_millis - last_millis >= 100)
 	{
 		float left_speed = left_encoder.getSpeed();
 		//float right_speed = right_encoder.getSpeed();
 
 		sendDataToPC(left_speed);
+
+		last_millis = current_millis;
 	}
 }
