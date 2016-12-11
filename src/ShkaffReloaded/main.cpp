@@ -1,6 +1,7 @@
-#include "DualEncoderDriver.hpp"
+#include "drivers/DualEncoderDriver.hpp"
+#include "drivers/MotorDriver.h"
+
 #include "logger.h"
-#include "MotorDriver.h"
 
 #include <Arduino.h>
 
