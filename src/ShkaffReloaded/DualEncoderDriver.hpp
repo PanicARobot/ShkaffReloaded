@@ -5,21 +5,19 @@
 #include <cmath>
 
 #define IMPULSES_PER_ROUND   12
-#define QUEUE_SIZE IMPULSES_PER_ROUND
+#define QUEUE_SIZE           12
 
 class DualEncoder {
 	private:
-		uint32_t last_micros;
-		int8_t impulse_counter;
-
-		uint32_t impulse_deltas[QUEUE_SIZE];
-		uint32_t impulse_deltas_sum;
-		uint8_t impulse_deltas_index;
-
-		float speed;
-
 		const int A_PIN;
 		const int B_PIN;
+
+		volatile uint32_t last_micros;
+		volatile int8_t impulse_counter;
+		volatile uint32_t impulse_deltas[QUEUE_SIZE];
+		volatile uint32_t impulse_deltas_sum;
+		volatile uint8_t impulse_deltas_index;
+		volatile int8_t direction;
 
 		void update(int8_t);
 
@@ -27,12 +25,11 @@ class DualEncoder {
 		DualEncoder(int, int);
 
 		void init(void (*)(), void (*)());
-		void update();
 
 		void A_handler();
 		void B_handler();
 
-		inline float getSpeed() { return speed; }; // mm / s
+		float getSpeed(); // mm / s
 };
 
 #endif // __DUAL_ENCODER_DRIVER_H
