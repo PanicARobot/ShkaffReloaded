@@ -1,5 +1,6 @@
 #include "DualEncoderDriver.hpp"
 #include "logger.h"
+#include "MotorDriver.h"
 
 #include <Arduino.h>
 
@@ -15,6 +16,8 @@ DualEncoder right_encoder(RIGHT_ENCODER_A_PIN, RIGHT_ENCODER_B_PIN);
 
 void setup()
 {
+	initMotors();
+
 	left_encoder.init(
 		[]{left_encoder.A_handler();},
 		[]{left_encoder.B_handler();});
