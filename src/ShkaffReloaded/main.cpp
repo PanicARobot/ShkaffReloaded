@@ -5,11 +5,10 @@
 
 #define SERIAL_BAUD_RATE 115200
 
-// TODO: set correct PINs
 #define LEFT_ENCODER_A_PIN 0
 #define LEFT_ENCODER_B_PIN 1
-#define RIGHT_ENCODER_A_PIN 2
-#define RIGHT_ENCODER_B_PIN 3
+#define RIGHT_ENCODER_A_PIN 4
+#define RIGHT_ENCODER_B_PIN 5
 
 DualEncoder left_encoder(LEFT_ENCODER_A_PIN, LEFT_ENCODER_B_PIN);
 DualEncoder right_encoder(RIGHT_ENCODER_A_PIN, RIGHT_ENCODER_B_PIN);
