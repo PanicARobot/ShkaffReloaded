@@ -1,4 +1,5 @@
 #include "DualEncoderDriver.hpp"
+#include "logger.h"
 
 #include <Arduino.h>
 
@@ -30,15 +31,14 @@ void loop()
 	static uint32_t last_micros = 0;
 	uint32_t current_micros = micros();
 
-	if(current_micros - last_micros >= 100)
-	{
-		float left_speed = left_encoder.getSpeed();
-		float right_speed = right_encoder.getSpeed();
-
-		Serial.print(left_speed); Serial.print("  ");
-		Serial.print(right_speed); Serial.print("\n");
-	}
-
 	left_encoder.update();
 	right_encoder.update();
+
+	if(current_micros - last_micros >= 50)
+	{
+		float left_speed = left_encoder.getSpeed();
+		//float right_speed = right_encoder.getSpeed();
+
+		sendDataToPC(left_speed);
+	}
 }
