@@ -1,5 +1,6 @@
 #include "drivers/DualEncoderDriver.hpp"
 #include "drivers/MotorDriver.h"
+#include "controlled_movement.h"
 
 #include "logger.h"
 
@@ -37,7 +38,9 @@ void loop()
 	if(current_millis - last_millis >= 100)
 	{
 		float left_speed = left_encoder.getSpeed();
-		//float right_speed = right_encoder.getSpeed();
+		float right_speed = right_encoder.getSpeed();
+
+		handleControlledMovement(left_speed, right_speed, 1000.0f / (current_millis - last_millis));
 
 		sendDataToPC(left_speed);
 
