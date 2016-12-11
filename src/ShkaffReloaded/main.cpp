@@ -38,4 +38,7 @@ void loop()
 		Serial.print(left_speed); Serial.print("  ");
 		Serial.print(right_speed); Serial.print("\n");
 	}
+
+	left_encoder.update();
+	right_encoder.update();
 }
