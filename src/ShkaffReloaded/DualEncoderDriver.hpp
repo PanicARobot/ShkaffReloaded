@@ -5,16 +5,14 @@
 #include <cmath>
 
 #define IMPULSES_PER_ROUND   12
-#define WHEEL_REDUCTION   29.86
-#define WHEEL_DIAMETER       32
-
+#define QUEUE_SIZE IMPULSES_PER_ROUND
 
 class DualEncoder {
 	private:
 		uint32_t last_micros;
 		int8_t impulse_counter;
 
-		uint32_t impulse_deltas[IMPULSES_PER_ROUND];
+		uint32_t impulse_deltas[QUEUE_SIZE];
 		uint32_t impulse_deltas_sum;
 		uint8_t impulse_deltas_index;
 

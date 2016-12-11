@@ -36,7 +36,7 @@ void loop()
 	left_encoder.update();
 	right_encoder.update();
 
-	if(current_micros - last_micros >= 50)
+	if(current_micros - last_micros >= 100)
 	{
 		float left_speed = left_encoder.getSpeed();
 		//float right_speed = right_encoder.getSpeed();

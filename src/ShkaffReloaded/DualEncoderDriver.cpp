@@ -2,11 +2,15 @@
 
 #include <Arduino.h>
 
+#define MICROS_PER_SECOND 1000000
+#define WHEEL_REDUCTION   29.86
+#define WHEEL_DIAMETER       32
+
 #define RESET_TIMEOUT_MULTIPLIER 3
 
-static constexpr float WHEEL_PERIMETER = WHEEL_DIAMETER * M_PI;
-static constexpr float IMPULSES_PER_WHEEL = IMPULSES_PER_ROUND * WHEEL_REDUCTION;
-static constexpr float DISTANCE_PER_IMPULSE = MICROS_PER_SECOND * WHEEL_PERIMETER / IMPULSES_PER_WHEEL;
+#define WHEEL_PERIMETER      (WHEEL_DIAMETER * M_PI)
+#define IMPULSES_PER_WHEEL   (IMPULSES_PER_ROUND * WHEEL_REDUCTION)
+#define DISTANCE_PER_IMPULSE (MICROS_PER_SECOND * WHEEL_PERIMETER / IMPULSES_PER_WHEEL)
 
 DualEncoder::DualEncoder(int a_pin, int b_pin) :
 	last_micros(0),
@@ -48,13 +52,13 @@ void DualEncoder::update(int8_t dir)
 	}
 	else
 	{
-		if(impulse_deltas_index + 1 == IMPULSES_PER_ROUND)
+		if(impulse_deltas_index + 1 == QUEUE_SIZE)
 			impulse_deltas_index = 0;
 		else ++impulse_deltas_index;
 
-		if(dir > 0 && impulse_counter <= IMPULSES_PER_ROUND)
+		if(dir > 0 && impulse_counter <= QUEUE_SIZE)
 			++impulse_counter;
-		else if(dir < 0 && impulse_counter >= -IMPULSES_PER_ROUND)
+		else if(dir < 0 && impulse_counter >= -QUEUE_SIZE)
 			--impulse_counter;
 		else impulse_deltas_sum -= impulse_deltas[impulse_deltas_index];
 
