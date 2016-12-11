@@ -1,0 +1,6 @@
+[submodule "src/ArduinoCore-samd"]
+	path = src/ArduinoCore-samd
+	url = https://github.com/arduino/ArduinoCore-samd.git
+[submodule "src/BOSSA"]
+	path = src/BOSSA
+	url = https://github.com/shumatech/BOSSA.git
