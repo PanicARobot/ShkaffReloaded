@@ -9,7 +9,7 @@
 
 #define     ENCODER_INTEGRAL_FORCE      1
 
-// endcoder needed variables
+// encoder needed variables
 uint32_t encoderSpeed, setPoint = 1000, powerLevel, encoderLastSignalChange = 0, encoderLastTimeBetweenPeaks = 0, bufferForEncoder;
 
 // main tasks time handling
@@ -88,10 +88,10 @@ void handleEncoderPinChange()
     // static flag for peak detection
     static uint8_t peakStarted = 0;
 
-    // in case the peak eneded we need to update the last time between peaks
+    // in case the peak ended we need to update the last time between peaks
     if (1 == peakStarted)
     {
-        // load the new peap to peak time in the variable
+        // load the new peak to peak time in the variable
         encoderLastTimeBetweenPeaks = micros() - encoderLastSignalChange;
 
         // reset peak started flag
